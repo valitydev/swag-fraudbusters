@@ -1,4 +1,4 @@
-RBKmoney Fraudbusters proxy inspector API является интерфейсом для 
+Vality Fraudbusters proxy inspector API является интерфейсом для 
 сервиса поиска мошеннических операций.
 
 Мы предоставляем REST API поверх HTTP-протокола, схема которого описывается в

@@ -1,9 +1,9 @@
 description: Информация по выплате
 required:
-  - cashInfo
-  - bankCard
   - id
-  - accountId
+  - paymentResource
+  - account
+  - cash
   - status
 properties:
   id:
@@ -13,14 +13,17 @@ properties:
     description: Дата и время создания
     type: string
     format: date-time
-  bankCard:
-    $ref: './BankCard.yaml'
+  paymentResource:
+    oneOf:
+      - $ref: './BankCard.yaml'
+    discriminator:
+      propertyName: paymentType
   account:
     $ref: './Account.yaml'
-  cashInfo:
-    $ref: './CashInfo.yaml'
-  providerInfo:
-    $ref: './ProviderInfo.yaml'
+  cash:
+    $ref: './Cash.yaml'
+  provider:
+    $ref: './Provider.yaml'
   status:
     description: Статус выплаты
     $ref: './WithdrawalStatus.yaml'

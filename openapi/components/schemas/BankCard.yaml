@@ -1,29 +1,32 @@
-description: Информацмя по банковской карте
+description: Банковская карта
 required:
+  - paymentType
+  - bin
   - cardToken
   - lastDigits
-  - bin
 properties:
+  paymentType:
+    $ref: './PaymentMethod.yaml'
   bin:
     description: bin карты
     type: string
     minLength: 3
     maxLength: 20
-  lastDigits:
-    description: Последнии цифры карты
-    type: string
-    minLength: 3
-    maxLength: 20
-  binCountryCode:
-    description: 'Страна карты, alpha-3 код по стандарту [ISO 3166-1](https://en.wikipedia.org/wiki/ISO_3166-1)'
-    type: string
-    pattern: '^[A-Z]{3}$'
-    example: "RUS"
   cardToken:
     description: Токен идентифицирующий карту
     type: string
     minLength: 1
     maxLength: 200
+  lastDigits:
+    description: Последнии цифры карты
+    type: string
+    minLength: 3
+    maxLength: 20
+  countryCode:
+    description: 'Страна карты, alpha-3 код по стандарту [ISO 3166-1](https://en.wikipedia.org/wiki/ISO_3166-1)'
+    type: string
+    pattern: '^[A-Z]{3}$'
+    example: "RUS"
   bankName:
     description: Название банка
     type: string

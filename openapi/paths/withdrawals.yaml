@@ -2,7 +2,7 @@ post:
   summary: Загрузка результатов выплаты
   operationId: insertWithdrawals
   tags:
-    - load-data
+    - historical-data
   requestBody:
       content:
         application/json:

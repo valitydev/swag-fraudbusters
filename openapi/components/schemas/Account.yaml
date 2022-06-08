@@ -1,9 +1,9 @@
 description: Информация о счете
 required:
-  - accountId
+  - id
 properties:
-  accountId:
-    description: Номер счета
+  id:
+    description: Идентификатор счета
     type: string
   currency:
     description: Валюта

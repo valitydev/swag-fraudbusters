@@ -2,7 +2,7 @@ post:
   summary: Загрузка списка мошеннических операций
   operationId: insertFraudPayments
   tags:
-    - load-data
+    - historical-data
   requestBody:
       content:
         application/json:

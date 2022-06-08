@@ -1,9 +1,9 @@
-description: Информация о мерчанте
+description: Информация о провайдере
 required:
-  - providerId
+  - id
   - terminalId
 properties:
-  providerId:
+  id:
     description: Идентификатор провайдера
     type: string
   terminalId:

@@ -2,7 +2,7 @@ post:
   summary: Загрузка результатов возвратов
   operationId: insertRefunds
   tags:
-    - load-data
+    - historical-data
   requestBody:
       content:
         application/json:

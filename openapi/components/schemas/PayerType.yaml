@@ -1,5 +1,14 @@
+# TODO у нас будут все эти типы? с пояснениями ниже нужна помощь
+description: |
+  Тип плательщика.
+  
+  | Значение    | Пояснение  |
+  | ----------- | -----------|
+  | `payment-resource`| Платежноей устройство |
+  | `customer`| Пользовательский  |
+  | `recurrent`| Рекурентный платеж |
 type: string
 enum:
-  - 'payment_resource'
+  - 'payment-resource'
   - 'customer'
   - 'recurrent'

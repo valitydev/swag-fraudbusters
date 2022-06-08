@@ -2,7 +2,7 @@ post:
   summary: Загрузка чарджбеков
   operationId: insertChargebacks
   tags:
-    - load-data
+    - historical-data
   requestBody:
       content:
         application/json:

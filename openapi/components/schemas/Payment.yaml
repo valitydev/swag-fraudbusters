@@ -1,31 +1,33 @@
-description: Контекст платежа
+description: Информация о платеже
 required:
-  - cashInfo
-  - bankCard
-  - merchantInfo
-  - invoiceId
-  - paymentId
+  - id
+  - cash
+  - paymentResource
+  - merchant
   - payerType
 properties:
   id:
     description: Идентификатор платежа
     type: string
-  payerInfo:
-    $ref: './UserInfo.yaml'
-  cashInfo:
-    $ref: './CashInfo.yaml'
-  bankCard:
-    $ref: './BankCard.yaml'
-  merchantInfo:
-    $ref: './MerchantInfo.yaml'
-  providerInfo:
-    $ref: './ProviderInfo.yaml'
+  payer:
+    $ref: './Customer.yaml'
+  cash:
+    $ref: './Cash.yaml'
+  paymentResource:
+    oneOf:
+      - $ref: './BankCard.yaml'
+    discriminator:
+      propertyName: paymentType
+  merchant:
+    $ref: './Merchant.yaml'
+  provider:
+    $ref: './Provider.yaml'
   mobile:
     description: Признак мобильного платежа
     type: boolean
     default: false
   recurrent:
-    description: Признак рекурентного платежа
+    description: Признак рекурентного платежа # TODO нужен ли он, если есть PayerType?
     type: boolean
     default: false
   payerType:
@@ -38,3 +40,6 @@ properties:
     description: Дата и время создания
     type: string
     format: date-time
+  product:  # TODO может переместить?
+    description: Описание оплачиваемой услуги
+    type: string

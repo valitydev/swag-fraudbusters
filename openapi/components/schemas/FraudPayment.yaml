@@ -1,10 +1,10 @@
 description: Информация по мошеннической операции
 required:
-  - paymentContext
-  - paymentStatus
+  - paymentId
   - eventTime
+  - type
 properties:
-  payemntId:
+  paymentId:
     description: Идентификатор платежа
     type: string
   eventTime:

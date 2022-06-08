@@ -1,0 +1,4 @@
+description: Метод оплаты
+type: string
+enum:
+  - BankCard

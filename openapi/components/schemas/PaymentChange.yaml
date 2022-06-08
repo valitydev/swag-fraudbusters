@@ -1,16 +1,20 @@
 description: Изменения по платежу
 required:
-  - paymentContext
+  - payment
+  - invoiceId
   - paymentStatus
   - eventTime
 properties:
-  paymentContext:
-    $ref: './PaymentContext.yaml'
+  payment:
+    $ref: './Payment.yaml'
+  invoiceId:
+    description: Идентификатор инвойса  # TODO нужен ли он?
+    type: string
   paymentStatus:
     $ref: './PaymentStatus.yaml'
-  error:
-    $ref: './Error.yaml'
   eventTime:
     description: Дата и время создания
     type: string
     format: date-time
+  error:
+    $ref: './Error.yaml'

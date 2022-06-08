@@ -21,10 +21,11 @@ properties:
   merchant:
     $ref: './Merchant.yaml'
   paymentResource:
+    title: paymentResource
     oneOf:
       - $ref: './BankCard.yaml'
     discriminator:
-      propertyName: paymentType
+      propertyName: type
   cash:
     $ref: './Cash.yaml'
   provider:

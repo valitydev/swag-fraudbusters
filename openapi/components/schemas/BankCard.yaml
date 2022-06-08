@@ -1,12 +1,12 @@
 description: Банковская карта
 required:
-  - paymentType
+  - type
   - bin
   - cardToken
   - lastDigits
 properties:
-  paymentType:
-    $ref: './PaymentMethod.yaml'
+  type:
+    type: string
   bin:
     description: bin карты
     type: string

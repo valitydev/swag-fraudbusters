@@ -2,7 +2,6 @@ description: Информация по мошеннической операци
 required:
   - paymentId
   - eventTime
-  - type
 properties:
   paymentId:
     description: Идентификатор платежа

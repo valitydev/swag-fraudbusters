@@ -4,11 +4,11 @@ description: |
   
   | Значение    | Пояснение  |
   | ----------- | -----------|
-  | `payment-resource`| Платежноей устройство |
+  | `payment-resource`| Платежное устройство |
   | `customer`| Пользовательский  |
   | `recurrent`| Рекурентный платеж |
 type: string
 enum:
-  - 'payment-resource'
+  - 'payment_resource'
   - 'customer'
   - 'recurrent'

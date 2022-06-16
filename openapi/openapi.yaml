@@ -16,24 +16,24 @@ security: [ ]
 tags:
   - name: inspector
     x-displayName: Инспектор
-  - name: load-data
+  - name: historical-data
     x-displayName: Загрузка исторических данных
   - name: error-codes
     x-displayName: Коды ошибок
     description:
       $ref: './docs/error-codes.md'
 paths:
-  /fraudbusters/inspect-payment:
-    $ref: ./paths/inspectPayment.yaml
-  /fraudbusters/chargebacks:
+  /inspect-payment:
+    $ref: ./paths/inspector.yaml
+  /chargebacks:
     $ref: ./paths/chargebacks.yaml
-  /fraudbusters/fraud-payments:
+  /fraud-payments:
     $ref: ./paths/fraudPayments.yaml
-  /fraudbusters/payments:
+  /payments:
     $ref: ./paths/payments.yaml
-  /fraudbusters/refunds:
+  /refunds:
     $ref: ./paths/refunds.yaml
-  /fraudbusters/withdrawals:
+  /withdrawals:
     $ref: ./paths/withdrawals.yaml
 servers:
   - url: 'https://api.vality.dev/org/v1'

@@ -1,16 +1,16 @@
 description: Изменения по платежу
 required:
-  - paymentContext
+  - payment
   - paymentStatus
   - eventTime
 properties:
-  paymentContext:
-    $ref: './PaymentContext.yaml'
+  payment:
+    $ref: './Payment.yaml'
   paymentStatus:
     $ref: './PaymentStatus.yaml'
-  error:
-    $ref: './Error.yaml'
   eventTime:
     description: Дата и время создания
     type: string
     format: date-time
+  error:
+    $ref: './Error.yaml'

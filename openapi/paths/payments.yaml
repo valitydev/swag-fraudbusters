@@ -2,7 +2,7 @@ post:
   summary: Загрузка изменений по платежу
   operationId: insertPaymentsChanges
   tags:
-    - load-data
+    - historical-data
   requestBody:
       content:
         application/json:

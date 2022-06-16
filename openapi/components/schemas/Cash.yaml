@@ -1,4 +1,4 @@
-description: Платежная информация
+description: Информация о денежных средствах
 required:
   - amount
   - currency

@@ -1,9 +1,9 @@
-description: Информация по чарджбеку
+description: Информация о возвратном платеже
 required:
-  - cashInfo
-  - bankCard
-  - merchantInfo
   - id
+  - cash
+  - paymentResource
+  - merchant
   - paymentId
   - payerType
   - status
@@ -11,7 +11,7 @@ required:
   - chargebackCode
 properties:
   id:
-    description: Идентификатор чарджбека
+    description: Идентификатор возвратного платежа
     type: string
   paymentId:
     description: Идентификатор платежа
@@ -20,25 +20,29 @@ properties:
     description: Дата и время создания
     type: string
     format: date-time
-  merchantInfo:
-    $ref: './MerchantInfo.yaml'
-  bankCard:
-    $ref: './BankCard.yaml'
-  cashInfo:
-    $ref: './CashInfo.yaml'
-  providerInfo:
-    $ref: './ProviderInfo.yaml'
-  payerInfo:
-    $ref: './UserInfo.yaml'
+  merchant:
+    $ref: './Merchant.yaml'
+  paymentResource:
+    title: paymentResource
+    oneOf:
+      - $ref: './BankCard.yaml'
+    discriminator:
+      propertyName: type
+  cash:
+    $ref: './Cash.yaml'
+  provider:
+    $ref: './Provider.yaml'
+  customer:
+    $ref: './Customer.yaml'
   payerType:
     description: Тип плательщика
     $ref: './PayerType.yaml'
   status:
-    description: Статус чарджа
+    description: Статус возвратного платежа
     $ref: './ChargebackStatus.yaml'
   category:
-    description: Категория
+    description: Категория возвратного платежа
     $ref: './ChargebackCategory.yaml'
   chargebackCode:
-    description: Тип плательщика
+    description: Код возвратного платежа
     type: string

@@ -1,4 +1,4 @@
-description: Информация по ошибке
+description: Информация об ошибке
 required:
   - errorCode
 properties:

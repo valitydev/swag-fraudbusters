@@ -30,7 +30,7 @@ properties:
     $ref: './Cash.yaml'
   provider:
     $ref: './Provider.yaml'
-  payer:
+  customer:
     $ref: './Customer.yaml'
   payerType:
     description: Тип плательщика

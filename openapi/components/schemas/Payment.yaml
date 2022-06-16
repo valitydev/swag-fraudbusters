@@ -9,7 +9,7 @@ properties:
   id:
     description: Идентификатор платежа
     type: string
-  payer:
+  customer:
     $ref: './Customer.yaml'
   cash:
     $ref: './Cash.yaml'
@@ -23,14 +23,6 @@ properties:
     $ref: './Merchant.yaml'
   provider:
     $ref: './Provider.yaml'
-  mobile:
-    description: Признак мобильного платежа
-    type: boolean
-    default: false
-  recurrent:
-    description: Признак рекурентного платежа # TODO нужен ли он, если есть PayerType?
-    type: boolean
-    default: false
   payerType:
     description: Тип плательщика
     $ref: './PayerType.yaml'
@@ -41,6 +33,6 @@ properties:
     description: Дата и время создания
     type: string
     format: date-time
-  product:  # TODO может переместить?
+  description:
     description: Описание оплачиваемой услуги
     type: string

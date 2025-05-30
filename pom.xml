@@ -151,6 +151,7 @@
                                     <inputSpec>web_deploy/openapi.yaml</inputSpec>
                                     <generatorName>spring</generatorName>
                                     <configOptions>
+                                        <useSpringBoot3>true</useSpringBoot3>
                                         <dateLibrary>java8</dateLibrary>
                                     </configOptions>
                                     <apiPackage>${default.package}.api</apiPackage>
@@ -180,6 +181,7 @@
                                     <inputSpec>web_deploy/openapi.yaml</inputSpec>
                                     <generatorName>java</generatorName>
                                     <configOptions>
+                                        <useSpringBoot3>true</useSpringBoot3>
                                         <dateLibrary>java8</dateLibrary>
                                     </configOptions>
                                     <library>resttemplate</library>

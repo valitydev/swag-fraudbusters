@@ -32,7 +32,6 @@
         <spring-version>3.4.3</spring-version>
         <jakarta-annotation-api-version>3.0.0</jakarta-annotation-api-version>
         <jaxb-version>2.3.1</jaxb-version>
-        <openapi-generator-version>7.13.0</openapi-generator-version>
     </properties>
 
     <dependencies>
@@ -58,47 +57,42 @@
         <dependency>
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-commons</artifactId>
-            <version>${spring-version}</version>
+            <version>3.1.8</version>
             <scope>provided</scope>
         </dependency>
-        <!--third part      -->
+
         <dependency>
-            <groupId>io.swagger.core.v3</groupId>
+            <groupId>io.swagger</groupId>
             <artifactId>swagger-annotations</artifactId>
-            <version>2.2.22</version>
+            <version>1.6.6</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-log4j12</artifactId>
-            <version>${slf4j-version}</version>
+            <groupId>io.swagger.parser.v3</groupId>
+            <artifactId>swagger-parser-v3</artifactId>
+            <version>2.1.21</version>
+        </dependency>
+
+        <dependency>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
+            <version>${servlet-api-version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>jakarta.annotation</groupId>
             <artifactId>jakarta.annotation-api</artifactId>
-            <version>3.0.0</version>
+            <version>${jakarta-annotation-api-version}</version>
         </dependency>
         <dependency>
             <groupId>jakarta.validation</groupId>
             <artifactId>jakarta.validation-api</artifactId>
-            <version>3.1.0</version>
-        </dependency>
-        <dependency>
-            <groupId>jakarta.servlet</groupId>
-            <artifactId>jakarta.servlet-api</artifactId>
-            <version>6.1.0</version>
-            <scope>provided</scope>
+            <version>3.0.2</version>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.datatype</groupId>
             <artifactId>jackson-datatype-jsr310</artifactId>
             <version>${jackson-version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.openapitools</groupId>
-            <artifactId>jackson-databind-nullable</artifactId>
-            <version>0.2.2</version>
-            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.google.code.findbugs</groupId>
@@ -122,7 +116,7 @@
                     <plugin>
                         <groupId>org.openapitools</groupId>
                         <artifactId>openapi-generator-maven-plugin</artifactId>
-                        <version>${openapi-generator-version}</version>
+                        <version>7.13.0</version>
                         <executions>
                             <execution>
                                 <id>spring-server</id>
@@ -130,21 +124,14 @@
                                     <goal>generate</goal>
                                 </goals>
                                 <configuration>
-                                    <inputSpec>openapi/openapi.yaml</inputSpec>
+                                    <inputSpec>web_deploy/openapi.yaml</inputSpec>
                                     <generatorName>spring</generatorName>
-                                    <generateModels>true</generateModels>
-                                    <generateApis>true</generateApis>
-                                    <generateApiDocumentation>true</generateApiDocumentation>
-                                    <generateSupportingFiles>true</generateSupportingFiles>
-                                    <apiPackage>${default.package}.api</apiPackage>
-                                    <modelPackage>${default.package}.model</modelPackage>
-                                    <supportingFilesToGenerate>ApiUtil.java</supportingFilesToGenerate>
                                     <configOptions>
-                                        <dateLibrary>java8</dateLibrary>
-                                        <delegatePattern>true</delegatePattern>
                                         <useBeanValidation>true</useBeanValidation>
                                         <useSpringBoot3>true</useSpringBoot3>
                                     </configOptions>
+                                    <apiPackage>${default.package}.api</apiPackage>
+                                    <modelPackage>${default.package}.model</modelPackage>
                                 </configuration>
                             </execution>
                         </executions>
@@ -159,15 +146,15 @@
                     <plugin>
                         <groupId>org.openapitools</groupId>
                         <artifactId>openapi-generator-maven-plugin</artifactId>
-                        <version>${openapi-generator-version}</version>
+                        <version>7.13.0</version>
                         <executions>
                             <execution>
-                                <id>remote</id>
+                                <id>spring-client</id>
                                 <goals>
                                     <goal>generate</goal>
                                 </goals>
                                 <configuration>
-                                    <inputSpec>openapi/openapi.yaml</inputSpec>
+                                    <inputSpec>web_deploy/openapi.yaml</inputSpec>
                                     <generatorName>java</generatorName>
                                     <configOptions>
                                         <dateLibrary>java8</dateLibrary>

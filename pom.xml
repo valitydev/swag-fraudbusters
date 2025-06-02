@@ -134,6 +134,8 @@
                                     <inputSpec>web_deploy/openapi.yaml</inputSpec>
                                     <generatorName>spring</generatorName>
                                     <configOptions>
+                                        <dateLibrary>java8</dateLibrary>
+                                        <delegatePattern>true</delegatePattern>
                                         <useBeanValidation>true</useBeanValidation>
                                         <useSpringBoot3>true</useSpringBoot3>
                                     </configOptions>

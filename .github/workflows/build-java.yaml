@@ -1,4 +1,4 @@
-name: Maven Build Artifact
+name: Build java libraries
 
 on:
   pull_request:
@@ -7,6 +7,4 @@ on:
 
 jobs:
   build:
-    uses: empayre/java-workflow/.github/workflows/maven-swag-build.yml@master
-    with:
-      run-script-name: build
+    uses: valitydev/java-workflow/.github/workflows/maven-swag-build.yml@v3

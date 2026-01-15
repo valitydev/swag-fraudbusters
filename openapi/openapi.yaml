@@ -25,6 +25,8 @@ tags:
 paths:
   /inspect-payment:
     $ref: ./paths/inspector.yaml
+  /inspect-user:
+    $ref: ./paths/userInspector.yaml
   /chargebacks:
     $ref: ./paths/chargebacks.yaml
   /fraud-payments:

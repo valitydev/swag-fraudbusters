@@ -141,6 +141,7 @@
                                         <dateLibrary>java8</dateLibrary>
                                         <delegatePattern>true</delegatePattern>
                                         <useBeanValidation>true</useBeanValidation>
+                                        <useJakartaEe>true</useJakartaEe>
                                         <useSpringBoot3>true</useSpringBoot3>
                                     </configOptions>
                                     <apiPackage>${default.package}.api</apiPackage>

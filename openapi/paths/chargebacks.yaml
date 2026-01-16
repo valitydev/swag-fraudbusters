@@ -4,13 +4,12 @@ post:
   tags:
     - historical-data
   requestBody:
-      content:
-        application/json:
-          schema:
-            $ref: '../components/requests/ChargebacksRequest.yaml'
+    content:
+      application/json:
+        schema:
+          $ref: '../components/requests/ChargebacksRequest.yaml'
   responses:
-      '201':
-        description: Чарджбеки успешно сохранены
-      '400':
-        $ref: '../components/responses/BadResponse.yaml'
-
+    '201':
+      description: Чарджбеки успешно сохранены
+    '400':
+      $ref: '../components/responses/BadResponse.yaml'

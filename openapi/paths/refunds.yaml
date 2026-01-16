@@ -4,13 +4,12 @@ post:
   tags:
     - historical-data
   requestBody:
-      content:
-        application/json:
-          schema:
-            $ref: '../components/requests/RefundsRequest.yaml'
+    content:
+      application/json:
+        schema:
+          $ref: '../components/requests/RefundsRequest.yaml'
   responses:
-      '201':
-        description: Возвраты успешно загружены
-      '400':
-        $ref: '../components/responses/BadResponse.yaml'
-
+    '201':
+      description: Возвраты успешно загружены
+    '400':
+      $ref: '../components/responses/BadResponse.yaml'

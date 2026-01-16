@@ -14,4 +14,3 @@ properties:
     type: string
     pattern: '^[A-Z]{3}$'
     example: "RUS"
-

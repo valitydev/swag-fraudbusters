@@ -7,7 +7,7 @@
     <parent>
         <groupId>dev.vality</groupId>
         <artifactId>library-parent-pom</artifactId>
-        <version>3.0.1</version>
+        <version>3.0.4</version>
     </parent>
 
     <artifactId>swag-fraudbusters</artifactId>
@@ -33,6 +33,7 @@
         <jakarta-annotation-api-version>3.0.0</jakarta-annotation-api-version>
         <jaxb-version>2.3.1</jaxb-version>
         <openapi-generator-maven-plugin.version>7.11.0</openapi-generator-maven-plugin.version>
+        <artifact.name>swag-fraudbusters</artifact.name>
     </properties>
 
     <dependencies>
@@ -122,6 +123,9 @@
     <profiles>
         <profile>
             <id>server</id>
+            <properties>
+                <artifact.name>swag-fraudbusters-server</artifact.name>
+            </properties>
             <build>
                 <plugins>
                     <plugin>
@@ -155,6 +159,9 @@
         </profile>
         <profile>
             <id>client</id>
+            <properties>
+                <artifact.name>swag-fraudbusters-client</artifact.name>
+            </properties>
             <build>
                 <plugins>
                     <plugin>

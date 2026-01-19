@@ -10,6 +10,8 @@
   "scripts": {
     "start": "openapi preview-docs",
     "build": "openapi bundle -o web_deploy/openapi.yaml && openapi bundle -o web_deploy/openapi.json",
+    "build-docs": "redocly build-docs -o dist/index.html",
+    "build-web": "npm run build && npm run build-docs",
     "validate": "openapi lint"
   }
 }

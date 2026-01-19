@@ -178,16 +178,19 @@
                         <version>${openapi-generator-maven-plugin.version}</version>
                         <executions>
                             <execution>
-                                <id>spring-client</id>
+                                <id>remote</id>
                                 <goals>
                                     <goal>generate</goal>
                                 </goals>
                                 <configuration>
-                                    <inputSpec>web_deploy/openapi.yaml</inputSpec>
+                                    <inputSpec>dist/openapi.yaml</inputSpec>
                                     <generatorName>java</generatorName>
                                     <configOptions>
                                         <dateLibrary>java8</dateLibrary>
+                                        <useSpringBoot3>true</useSpringBoot3>
                                         <useJakartaEe>true</useJakartaEe>
+                                        <useSpringfox>false</useSpringfox>
+                                        <hideGenerationTimestamp>true</hideGenerationTimestamp>
                                     </configOptions>
                                     <library>resttemplate</library>
                                     <apiPackage>${default.package}.api</apiPackage>

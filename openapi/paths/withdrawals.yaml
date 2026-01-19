@@ -1,8 +1,6 @@
 post:
   summary: Загрузка результатов выплаты
   operationId: insertWithdrawals
-  security:
-    - signature: [ ]
   tags:
     - historical-data
   requestBody:

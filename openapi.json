@@ -1,0 +1,923 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "version": "1.0.0",
+    "title": "Vality Fraudbusters API",
+    "description": "Vality Fraudbusters proxy inspector API является интерфейсом для \nсервиса поиска мошеннических операций.\n\nМы предоставляем REST API поверх HTTP-протокола, схема которого описывается в\nсоответствии со стандартом [OpenAPI 3][OAS3].\nКоды возврата описываются соответствующими HTTP-статусами. Платформа принимает и\nвозвращает значения JSON в теле запросов и ответов.\n\n[OAS3]: https://swagger.io/specification/\n\n## Формат содержимого\n\nЛюбой запрос к API должен выполняться в кодировке UTF-8 и с указанием\nсодержимого в формате JSON.\n\n```\nContent-Type: application/json; charset=utf-8\n```\n",
+    "termsOfService": "https://vality.dev/",
+    "contact": {
+      "name": "Vality Support Team",
+      "email": "support@vality.dev",
+      "url": "https://developer.vality.dev"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "tags": [
+    {
+      "name": "inspector",
+      "x-displayName": "Инспектор"
+    },
+    {
+      "name": "historical-data",
+      "x-displayName": "Загрузка исторических данных"
+    },
+    {
+      "name": "error-codes",
+      "x-displayName": "Коды ошибок",
+      "description": "## Общие ошибки\n\nОшибки, возникающие при попытках совершения недопустимых операций, операций с невалидными объектами или несуществующими ресурсами. Имеют следующий вид:\n\n```json\n{\n    \"code\": \"string\",\n    \"message\": \"string\"\n}\n```\n\nВ поле `message` содержится описание произошедшей ошибки. Например:\n\n```json\n{\n    \"code\": \"invalidRequest\",\n    \"message\": \"Property 'name' is required.\"\n}\n```\n\n## Ошибки обработки запросов\n\nВ процессе обработки запросов силами нашей платформы могут происходить различные непредвиденные ситуации. Об их появлении платформа сигнализирует по протоколу HTTP соответствующими [статусами][5xx], обозначающими ошибки сервера.\n\n|  Код    |  Описание  |\n| ------- | ---------- |\n| **500** | В процессе обработки платформой запроса возникла непредвиденная ситуация. При получении подобного кода ответа мы рекомендуем обратиться в техническую поддержку. |\n| **503** | Платформа временно недоступна и не готова обслуживать данный запрос. Запрос гарантированно не выполнен, при получении подобного кода ответа попробуйте выполнить его позднее, когда доступность платформы будет восстановлена. |\n| **504** | Платформа превысила допустимое время обработки запроса, результат запроса не определён. Попробуйте отправить запрос повторно или выяснить результат выполнения исходного запроса, если повторное исполнение запроса нежелательно. |\n\n[5xx]: https://tools.ietf.org/html/rfc7231#section-6.6\n\n\nЕсли вы получили ошибку, которой нет в данном описании, обратитесь в техническую поддержку.\n"
+    }
+  ],
+  "paths": {
+    "/inspect-payment": {
+      "post": {
+        "summary": "Проверка платежа",
+        "operationId": "inspectPayment",
+        "tags": [
+          "inspector"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PaymentInspectRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Результат проверки риска",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RiskScoreResult"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadResponse"
+          }
+        }
+      }
+    },
+    "/inspect-user": {
+      "post": {
+        "summary": "Проверка доступных методов для плательщика",
+        "operationId": "inspectUser",
+        "tags": [
+          "inspector"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserInspectRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Результат проверки пользователя",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserInspectResult"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadResponse"
+          }
+        }
+      }
+    },
+    "/chargebacks": {
+      "post": {
+        "summary": "Загрузка чарджбеков",
+        "operationId": "insertChargebacks",
+        "tags": [
+          "historical-data"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChargebacksRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Чарджбеки успешно сохранены"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadResponse"
+          }
+        }
+      }
+    },
+    "/fraud-payments": {
+      "post": {
+        "summary": "Загрузка списка мошеннических операций",
+        "operationId": "insertFraudPayments",
+        "tags": [
+          "historical-data"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FraudPaymentsRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Мошеннические операции успешно сохранены"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadResponse"
+          }
+        }
+      }
+    },
+    "/payments": {
+      "post": {
+        "summary": "Загрузка изменений по платежу",
+        "operationId": "insertPaymentsChanges",
+        "tags": [
+          "historical-data"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PaymentsChangesRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Изменения по платежу успешно сохранены"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadResponse"
+          }
+        }
+      }
+    },
+    "/refunds": {
+      "post": {
+        "summary": "Загрузка результатов возвратов",
+        "operationId": "insertRefunds",
+        "tags": [
+          "historical-data"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RefundsRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Возвраты успешно загружены"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadResponse"
+          }
+        }
+      }
+    },
+    "/withdrawals": {
+      "post": {
+        "summary": "Загрузка результатов выплаты",
+        "operationId": "insertWithdrawals",
+        "tags": [
+          "historical-data"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WithdrawalsRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Выплаты успешно загружены"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadResponse"
+          }
+        }
+      }
+    }
+  },
+  "servers": [
+    {
+      "url": "https://api.vality.dev/org/v1"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "Device": {
+        "description": "Информация об устройстве пользователя",
+        "properties": {
+          "ip": {
+            "type": "string"
+          },
+          "fingerprint": {
+            "type": "string"
+          }
+        }
+      },
+      "Contact": {
+        "description": "Контактные данные пользователя",
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "phone": {
+            "type": "string"
+          }
+        }
+      },
+      "Customer": {
+        "description": "Информация о клиенте",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "device": {
+            "$ref": "#/components/schemas/Device"
+          },
+          "contact": {
+            "$ref": "#/components/schemas/Contact"
+          }
+        }
+      },
+      "Cash": {
+        "description": "Информация о денежных средствах",
+        "required": [
+          "amount",
+          "currency"
+        ],
+        "properties": {
+          "amount": {
+            "description": "Сумма платежа",
+            "type": "integer",
+            "format": "int64"
+          },
+          "currency": {
+            "description": "Валюта, символьный код согласно [ISO 4217](http://www.iso.org/iso/home/standards/currency_codes.htm).",
+            "type": "string",
+            "pattern": "^[A-Z]{3}$"
+          }
+        }
+      },
+      "CardType": {
+        "type": "string",
+        "enum": [
+          "debit",
+          "credit"
+        ]
+      },
+      "BankCard": {
+        "description": "Банковская карта",
+        "required": [
+          "type",
+          "cardToken",
+          "lastDigits",
+          "bin"
+        ],
+        "properties": {
+          "type": {
+            "type": "string"
+          },
+          "cardToken": {
+            "description": "Токен идентифицирующий карту",
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          },
+          "lastDigits": {
+            "description": "Последнии цифры карты",
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 20
+          },
+          "cardType": {
+            "description": "Тип карты",
+            "$ref": "#/components/schemas/CardType"
+          },
+          "bin": {
+            "description": "Уникальный номер банка карты",
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 20
+          },
+          "countryCode": {
+            "description": "Страна карты, alpha-3 код по стандарту [ISO 3166-1](https://en.wikipedia.org/wiki/ISO_3166-1)",
+            "type": "string",
+            "pattern": "^[A-Z]{3}$",
+            "example": "RUS"
+          },
+          "bankName": {
+            "description": "Название банка",
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          },
+          "paymentSystem": {
+            "description": "Платежная система",
+            "type": "string"
+          }
+        }
+      },
+      "Shop": {
+        "description": "Информация о магазине",
+        "required": [
+          "id"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "category": {
+            "type": "string"
+          },
+          "location": {
+            "type": "string"
+          }
+        }
+      },
+      "Merchant": {
+        "description": "Информация о мерчанте",
+        "required": [
+          "id",
+          "shop"
+        ],
+        "properties": {
+          "id": {
+            "description": "Идентификатор мерчанта",
+            "type": "string"
+          },
+          "shop": {
+            "$ref": "#/components/schemas/Shop"
+          }
+        }
+      },
+      "Provider": {
+        "description": "Информация о провайдере",
+        "required": [
+          "id",
+          "terminalId"
+        ],
+        "properties": {
+          "id": {
+            "description": "Идентификатор провайдера",
+            "type": "string"
+          },
+          "terminalId": {
+            "description": "Идентификатор терминала",
+            "type": "string"
+          },
+          "country": {
+            "description": "Страна провайдера, alpha-3 код по стандарту [ISO 3166-1](https://en.wikipedia.org/wiki/ISO_3166-1)",
+            "type": "string",
+            "pattern": "^[A-Z]{3}$",
+            "example": "RUS"
+          }
+        }
+      },
+      "PayerType": {
+        "description": "Тип плательщика.\n| Значение    | Пояснение  |\n| ----------- | -----------|\n| `payment-resource`| Платежное устройство |\n| `customer`| Карта, привязанная к пользователю  |\n| `recurrent`| Рекурентный платеж |\n| `mobile`| Мобильное устройство |\n",
+        "type": "string",
+        "enum": [
+          "payment_resource",
+          "customer",
+          "recurrent",
+          "mobile"
+        ]
+      },
+      "Payment": {
+        "description": "Информация о платеже",
+        "required": [
+          "id",
+          "cash",
+          "paymentResource",
+          "merchant",
+          "payerType"
+        ],
+        "properties": {
+          "id": {
+            "description": "Идентификатор платежа",
+            "type": "string"
+          },
+          "customer": {
+            "$ref": "#/components/schemas/Customer"
+          },
+          "cash": {
+            "$ref": "#/components/schemas/Cash"
+          },
+          "paymentResource": {
+            "title": "paymentResource",
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/BankCard"
+              }
+            ],
+            "discriminator": {
+              "propertyName": "type"
+            }
+          },
+          "merchant": {
+            "$ref": "#/components/schemas/Merchant"
+          },
+          "provider": {
+            "$ref": "#/components/schemas/Provider"
+          },
+          "payerType": {
+            "description": "Тип плательщика",
+            "$ref": "#/components/schemas/PayerType"
+          },
+          "tokenMobileProvider": {
+            "description": "Провайдер предоставляющий токен для мобильного платежа",
+            "type": "string"
+          },
+          "createdAt": {
+            "description": "Дата и время создания",
+            "type": "string",
+            "format": "date-time"
+          },
+          "description": {
+            "description": "Описание оплачиваемой услуги",
+            "type": "string"
+          }
+        }
+      },
+      "PaymentInspectRequest": {
+        "type": "object",
+        "required": [
+          "payment"
+        ],
+        "properties": {
+          "payment": {
+            "$ref": "#/components/schemas/Payment"
+          }
+        }
+      },
+      "RiskScore": {
+        "type": "string",
+        "enum": [
+          "low",
+          "high",
+          "fatal"
+        ],
+        "default": "high"
+      },
+      "RiskScoreResult": {
+        "type": "object",
+        "required": [
+          "result"
+        ],
+        "properties": {
+          "result": {
+            "$ref": "#/components/schemas/RiskScore"
+          }
+        }
+      },
+      "UserInspectRequest": {
+        "type": "object",
+        "required": [
+          "user",
+          "merchants"
+        ],
+        "properties": {
+          "user": {
+            "$ref": "#/components/schemas/Customer"
+          },
+          "merchants": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Merchant"
+            }
+          }
+        }
+      },
+      "UserInspectResult": {
+        "type": "object",
+        "properties": {
+          "blockedMerchants": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Merchant"
+            }
+          }
+        }
+      },
+      "ChargebackStatus": {
+        "type": "string",
+        "enum": [
+          "accepted",
+          "rejected",
+          "cancelled"
+        ]
+      },
+      "ChargebackCategory": {
+        "type": "string",
+        "enum": [
+          "fraud",
+          "dispute",
+          "authorization",
+          "processing_error"
+        ]
+      },
+      "Chargeback": {
+        "description": "Информация о возвратном платеже",
+        "required": [
+          "id",
+          "cash",
+          "paymentResource",
+          "merchant",
+          "paymentId",
+          "payerType",
+          "status",
+          "category",
+          "chargebackCode"
+        ],
+        "properties": {
+          "id": {
+            "description": "Идентификатор возвратного платежа",
+            "type": "string"
+          },
+          "paymentId": {
+            "description": "Идентификатор платежа",
+            "type": "string"
+          },
+          "eventTime": {
+            "description": "Дата и время создания",
+            "type": "string",
+            "format": "date-time"
+          },
+          "merchant": {
+            "$ref": "#/components/schemas/Merchant"
+          },
+          "paymentResource": {
+            "title": "paymentResource",
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/BankCard"
+              }
+            ],
+            "discriminator": {
+              "propertyName": "type"
+            }
+          },
+          "cash": {
+            "$ref": "#/components/schemas/Cash"
+          },
+          "provider": {
+            "$ref": "#/components/schemas/Provider"
+          },
+          "customer": {
+            "$ref": "#/components/schemas/Customer"
+          },
+          "payerType": {
+            "description": "Тип плательщика",
+            "$ref": "#/components/schemas/PayerType"
+          },
+          "status": {
+            "description": "Статус возвратного платежа",
+            "$ref": "#/components/schemas/ChargebackStatus"
+          },
+          "category": {
+            "description": "Категория возвратного платежа",
+            "$ref": "#/components/schemas/ChargebackCategory"
+          },
+          "chargebackCode": {
+            "description": "Код возвратного платежа",
+            "type": "string"
+          }
+        }
+      },
+      "ChargebacksRequest": {
+        "type": "object",
+        "properties": {
+          "chargebacks": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Chargeback"
+            }
+          }
+        }
+      },
+      "FraudPayment": {
+        "description": "Информация по мошеннической операции",
+        "required": [
+          "paymentId",
+          "eventTime"
+        ],
+        "properties": {
+          "paymentId": {
+            "description": "Идентификатор платежа",
+            "type": "string"
+          },
+          "eventTime": {
+            "description": "Дата и время создания",
+            "type": "string",
+            "format": "date-time"
+          },
+          "type": {
+            "description": "Тип мошенничества",
+            "type": "string"
+          },
+          "comment": {
+            "description": "Комментарий",
+            "type": "string"
+          }
+        }
+      },
+      "FraudPaymentsRequest": {
+        "type": "object",
+        "properties": {
+          "fraudPayments": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FraudPayment"
+            }
+          }
+        }
+      },
+      "PaymentStatus": {
+        "type": "string",
+        "enum": [
+          "pending",
+          "processed",
+          "captured",
+          "cancelled",
+          "failed",
+          "unknown"
+        ]
+      },
+      "Error": {
+        "description": "Информация об ошибке",
+        "required": [
+          "errorCode"
+        ],
+        "properties": {
+          "errorCode": {
+            "description": "Код ошибки",
+            "type": "string"
+          },
+          "errorMessage": {
+            "description": "Описание ошибки",
+            "type": "string"
+          }
+        }
+      },
+      "PaymentChange": {
+        "description": "Изменения по платежу",
+        "required": [
+          "payment",
+          "paymentStatus",
+          "eventTime"
+        ],
+        "properties": {
+          "payment": {
+            "$ref": "#/components/schemas/Payment"
+          },
+          "paymentStatus": {
+            "$ref": "#/components/schemas/PaymentStatus"
+          },
+          "eventTime": {
+            "description": "Дата и время создания",
+            "type": "string",
+            "format": "date-time"
+          },
+          "error": {
+            "$ref": "#/components/schemas/Error"
+          }
+        }
+      },
+      "PaymentsChangesRequest": {
+        "type": "object",
+        "properties": {
+          "paymentsChanges": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PaymentChange"
+            }
+          }
+        }
+      },
+      "RefundStatus": {
+        "type": "string",
+        "enum": [
+          "succeeded",
+          "failed"
+        ]
+      },
+      "Refund": {
+        "description": "Информация по возврату",
+        "required": [
+          "id",
+          "paymentId",
+          "merchant",
+          "paymentResource",
+          "cash",
+          "payerType",
+          "status"
+        ],
+        "properties": {
+          "id": {
+            "description": "Идентификатор возврата",
+            "type": "string"
+          },
+          "paymentId": {
+            "description": "Идентификатор платежа",
+            "type": "string"
+          },
+          "eventTime": {
+            "description": "Дата и время создания",
+            "type": "string",
+            "format": "date-time"
+          },
+          "merchant": {
+            "$ref": "#/components/schemas/Merchant"
+          },
+          "paymentResource": {
+            "title": "paymentResource",
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/BankCard"
+              }
+            ],
+            "discriminator": {
+              "propertyName": "type"
+            }
+          },
+          "cash": {
+            "$ref": "#/components/schemas/Cash"
+          },
+          "provider": {
+            "$ref": "#/components/schemas/Provider"
+          },
+          "customer": {
+            "$ref": "#/components/schemas/Customer"
+          },
+          "payerType": {
+            "description": "Тип плательщика",
+            "$ref": "#/components/schemas/PayerType"
+          },
+          "status": {
+            "description": "Статус возврата",
+            "$ref": "#/components/schemas/RefundStatus"
+          },
+          "error": {
+            "$ref": "#/components/schemas/Error"
+          }
+        }
+      },
+      "RefundsRequest": {
+        "type": "object",
+        "properties": {
+          "refunds": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Refund"
+            }
+          }
+        }
+      },
+      "Account": {
+        "description": "Информация о счете",
+        "required": [
+          "id"
+        ],
+        "properties": {
+          "id": {
+            "description": "Идентификатор счета",
+            "type": "string"
+          },
+          "currency": {
+            "description": "Валюта",
+            "type": "string"
+          }
+        }
+      },
+      "WithdrawalStatus": {
+        "type": "string",
+        "enum": [
+          "pending",
+          "succeeded",
+          "failed"
+        ]
+      },
+      "Withdrawal": {
+        "description": "Информация по выплате",
+        "required": [
+          "id",
+          "paymentResource",
+          "account",
+          "cash",
+          "status"
+        ],
+        "properties": {
+          "id": {
+            "description": "Идентификатор выплаты",
+            "type": "string"
+          },
+          "eventTime": {
+            "description": "Дата и время создания",
+            "type": "string",
+            "format": "date-time"
+          },
+          "paymentResource": {
+            "title": "paymentResource",
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/BankCard"
+              }
+            ],
+            "discriminator": {
+              "propertyName": "type"
+            }
+          },
+          "account": {
+            "$ref": "#/components/schemas/Account"
+          },
+          "cash": {
+            "$ref": "#/components/schemas/Cash"
+          },
+          "provider": {
+            "$ref": "#/components/schemas/Provider"
+          },
+          "status": {
+            "description": "Статус выплаты",
+            "$ref": "#/components/schemas/WithdrawalStatus"
+          },
+          "error": {
+            "$ref": "#/components/schemas/Error"
+          }
+        }
+      },
+      "WithdrawalsRequest": {
+        "type": "object",
+        "properties": {
+          "withdrawals": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Withdrawal"
+            }
+          }
+        }
+      }
+    },
+    "responses": {
+      "BadResponse": {
+        "description": "Переданы ошибочные данные",
+        "content": {
+          "application/json": {
+            "schema": {
+              "description": "Ошибка в переданных данных",
+              "type": "object",
+              "required": [
+                "code"
+              ],
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "enum": [
+                    "invalidRequest"
+                  ]
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

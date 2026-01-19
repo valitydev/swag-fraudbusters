@@ -2,14 +2,15 @@
   "name": "vality-fraudbusters-api",
   "version": "1.0.0",
   "dependencies": {
-    "@redocly/openapi-cli": "^1.0.0-beta.9",
-    "json-merge-patch": "^1.0.0",
-    "redoc-cli": "^0.9.8"
+    "@redocly/cli": "^1.34.3",
+    "json-merge-patch": "1.0.2",
+    "redoc-cli": "^0.8.5"
   },
   "scripts": {
-    "start": "openapi preview-docs",
-    "build": "openapi bundle -o web_deploy/openapi.yaml && openapi bundle -o web_deploy/openapi.json",
-    "docs": "redocly build-docs ./web_deploy/openapi.yaml --output static/index.html",
-    "validate": "openapi lint"
+    "start": "redocly preview-docs",
+    "build": "redocly bundle openapi/openapi.yaml -o dist/openapi.yaml && redocly bundle openapi/openapi.yaml -o dist/openapi.json",
+    "build-docs": "redocly build-docs -o dist/index.html",
+    "build-web": "npm run build && npm run build-docs",
+    "validate": "redocly lint"
   }
 }

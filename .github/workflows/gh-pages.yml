@@ -19,10 +19,10 @@ jobs:
           cache: npm
       - run: npm install
       - name: Bundle specification & Build Docs
-        run: npm run docs
+        run: npm run build-web
       - name: Publish ReDoc on Github Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./static
+          publish_dir: ./dist
           exclude_assets: "swagger-ui"

@@ -9,7 +9,7 @@
   "scripts": {
     "start": "openapi preview-docs",
     "build": "openapi bundle -o web_deploy/openapi.yaml && openapi bundle -o web_deploy/openapi.json",
-    "build-web": "npm run build",
+    "docs": "redocly build-docs ./web_deploy/openapi.yaml --output static/index.html",
     "validate": "openapi lint"
   }
 }

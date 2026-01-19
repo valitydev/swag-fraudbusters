@@ -1,6 +1,8 @@
 post:
   summary: Загрузка результатов возвратов
   operationId: insertRefunds
+  security:
+    - signature: [ ]
   tags:
     - historical-data
   requestBody:

@@ -1,6 +1,8 @@
 post:
   summary: Загрузка чарджбеков
   operationId: insertChargebacks
+  security:
+    - signature: [ ]
   tags:
     - historical-data
   requestBody:

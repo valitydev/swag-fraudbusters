@@ -1,6 +1,8 @@
 post:
   summary: Проверка платежа
   operationId: inspectPayment
+  security:
+    - signature: [ ]
   tags:
     - inspector
   requestBody:

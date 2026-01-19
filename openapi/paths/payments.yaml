@@ -1,6 +1,8 @@
 post:
   summary: Загрузка изменений по платежу
   operationId: insertPaymentsChanges
+  security:
+    - signature: [ ]
   tags:
     - historical-data
   requestBody:

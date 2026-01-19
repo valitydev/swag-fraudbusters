@@ -140,17 +140,24 @@
                                     <goal>generate</goal>
                                 </goals>
                                 <configuration>
-                                    <inputSpec>web_deploy/openapi.yaml</inputSpec>
+                                    <inputSpec>dist/openapi.yaml</inputSpec>
                                     <generatorName>spring</generatorName>
+                                    <generateModels>true</generateModels>
+                                    <generateApis>true</generateApis>
+                                    <generateApiDocumentation>true</generateApiDocumentation>
+                                    <generateSupportingFiles>true</generateSupportingFiles>
+                                    <apiPackage>${default.package}.api</apiPackage>
+                                    <modelPackage>${default.package}.model</modelPackage>
+                                    <supportingFilesToGenerate>ApiUtil.java</supportingFilesToGenerate>
                                     <configOptions>
                                         <dateLibrary>java8</dateLibrary>
                                         <delegatePattern>true</delegatePattern>
                                         <useBeanValidation>true</useBeanValidation>
-                                        <useJakartaEe>true</useJakartaEe>
                                         <useSpringBoot3>true</useSpringBoot3>
+                                        <useJakartaEe>true</useJakartaEe>
+                                        <useSpringfox>false</useSpringfox>
+                                        <hideGenerationTimestamp>true</hideGenerationTimestamp>
                                     </configOptions>
-                                    <apiPackage>${default.package}.api</apiPackage>
-                                    <modelPackage>${default.package}.model</modelPackage>
                                 </configuration>
                             </execution>
                         </executions>
@@ -176,11 +183,14 @@
                                     <goal>generate</goal>
                                 </goals>
                                 <configuration>
-                                    <inputSpec>web_deploy/openapi.yaml</inputSpec>
+                                    <inputSpec>dist/openapi.yaml</inputSpec>
                                     <generatorName>java</generatorName>
                                     <configOptions>
                                         <dateLibrary>java8</dateLibrary>
+                                        <useSpringBoot3>true</useSpringBoot3>
                                         <useJakartaEe>true</useJakartaEe>
+                                        <useSpringfox>false</useSpringfox>
+                                        <hideGenerationTimestamp>true</hideGenerationTimestamp>
                                     </configOptions>
                                     <library>resttemplate</library>
                                     <apiPackage>${default.package}.api</apiPackage>

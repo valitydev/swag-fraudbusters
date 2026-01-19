@@ -21,6 +21,8 @@ tags:
     x-displayName: Коды ошибок
     description:
       $ref: './docs/error-codes.md'
+security:
+  - bearerAuth: []
 paths:
   /inspect-payment:
     $ref: ./paths/inspector.yaml
@@ -38,3 +40,9 @@ paths:
     $ref: ./paths/withdrawals.yaml
 servers:
   - url: 'https://api.vality.dev/org/v1'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

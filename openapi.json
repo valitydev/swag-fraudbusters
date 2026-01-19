@@ -15,6 +15,16 @@
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     }
   },
+  "servers": [
+    {
+      "url": "https://api.vality.dev/org/v1"
+    }
+  ],
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
   "tags": [
     {
       "name": "inspector",
@@ -228,12 +238,14 @@
       }
     }
   },
-  "servers": [
-    {
-      "url": "https://api.vality.dev/org/v1"
-    }
-  ],
   "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    },
     "schemas": {
       "Device": {
         "description": "Информация об устройстве пользователя",

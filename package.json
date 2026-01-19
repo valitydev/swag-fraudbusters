@@ -10,6 +10,6 @@
     "start": "redocly preview-docs",
     "build": "redocly bundle openapi/openapi.yaml -o dist/openapi.yaml && redocly bundle openapi/openapi.yaml -o dist/openapi.json",
     "build-web": "npm run build",
-    "validate": "redocly lint"
+    "validate": "openapi lint"
   }
 }

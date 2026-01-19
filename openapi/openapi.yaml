@@ -22,7 +22,7 @@ tags:
     description:
       $ref: './docs/error-codes.md'
 security:
-  - signature: []
+  - bearerAuth: []
 paths:
   /inspect-payment:
     $ref: ./paths/inspector.yaml
@@ -42,9 +42,7 @@ servers:
   - url: 'https://api.vality.dev/org/v1'
 components:
   securitySchemes:
-    signature:
-      description: |
-        Message signature formed according to the above rules.
-      name: Content-Signature
-      type: apiKey
-      in: header
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

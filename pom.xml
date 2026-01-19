@@ -178,7 +178,7 @@
                         <version>${openapi-generator-maven-plugin.version}</version>
                         <executions>
                             <execution>
-                                <id>remote</id>
+                                <id>spring-client</id>
                                 <goals>
                                     <goal>generate</goal>
                                 </goals>

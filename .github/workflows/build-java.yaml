@@ -8,3 +8,5 @@ on:
 jobs:
   build:
     uses: valitydev/java-workflow/.github/workflows/maven-swag-build.yml@v3.1.3
+    with:
+      dist-directory: ./dist

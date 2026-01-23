@@ -3,7 +3,7 @@ required:
   - user
   - merchants
 properties:
-  user:
+  customer:
     $ref: '../schemas/Customer.yaml'
   merchants:
     type: array

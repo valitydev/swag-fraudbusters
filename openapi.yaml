@@ -408,7 +408,7 @@ components:
         - user
         - merchants
       properties:
-        user:
+        customer:
           $ref: '#/components/schemas/Customer'
         merchants:
           type: array
